@@ -2,7 +2,7 @@
 # Written by Draco (tytydraco @ GitHub)
 
 # The name of the current branch for logging purposes
-BRANCH="gamer"
+BRANCH="balanceado"
 
 # Maximum unsigned integer size in C
 UINT_MAX="4294967295"
