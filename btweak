@@ -11,7 +11,7 @@ UINT_MAX="4294967295"
 SCHED_PERIOD="$((10 * 1000 * 1000))"
 
 # How many tasks should we have at a maximum in one scheduling period
-SCHED_TASKS="6"
+SCHED_TASKS="8"
 
 write() {
 	# Bail out if file does not exist
@@ -49,10 +49,10 @@ echo "Branch: $BRANCH"
 sync
 
 # Limit max perf event processing time to this much CPU usage
-write /proc/sys/kernel/perf_cpu_time_max_percent 30
+write /proc/sys/kernel/perf_cpu_time_max_percent 5
 
 # Sacrifice latency for gamer when grouping tasks
-write /proc/sys/kernel/sched_autogroup_enabled 0
+write /proc/sys/kernel/sched_autogroup_enabled 1
 
 # Process child-parent forks naturally
 write /proc/sys/kernel/sched_child_runs_first 0
@@ -65,7 +65,13 @@ write /proc/sys/kernel/sched_latency_ns "$SCHED_PERIOD"
 
 # Schedule this ratio of tasks in the guarenteed sched period
 write /proc/sys/kernel/sched_min_granularity_ns "$((SCHED_PERIOD / SCHED_TASKS))"
+#D as tarefas com esta carga pesada
+write /proc/sys/kernel/sched_downmigrate "70 70"
+write /proc/sys/kernel/sched_group_downmigrate 70
 
+#migrar pra cima 
+write /proc/sys/kernel/sched_upmigrate "70 70"
+write /proc/sys/kernel/sched_group_upmigrate 70
 # Require preeptive tasks to surpass half of a sched period in vmruntime
 write /proc/sys/kernel/sched_wakeup_granularity_ns "$((SCHED_PERIOD / 2))"
 
@@ -86,6 +92,8 @@ write /proc/sys/kernel/printk_devkmsg off
 
 # Start non-blocking writeback later
 write /proc/sys/vm/dirty_background_ratio 15
+#
+write /proc/sys/kernel/sched_autogroup_enabled 1
 
 # Start blocking writeback later
 write /proc/sys/vm/dirty_ratio 30
@@ -116,6 +124,9 @@ write /proc/sys/net/ipv4/tcp_fastopen 3
 
 # Disable SYN cookies
 write /proc/sys/net/ipv4/tcp_syncookies 0
+
+#desativar LMK
+write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 0
 
 if [[ -f "/sys/kernel/debug/sched_features" ]]
 then
