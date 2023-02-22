@@ -38,7 +38,7 @@ then
 	exit 1
 fi
 
-# Detect if we are running on Android
+# Detect if we are running on Androids
 grep -q android /proc/cmdline && ANDROID=true
 
 # Log the date and time for records sake
