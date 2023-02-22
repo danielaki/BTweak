@@ -8,11 +8,10 @@ Na verdade, o BTweak é um fork que segue o mesmo propósito do projeto original
 Diferentemente de outros "otimizadores de kernel", o BTweak é:
 
 * Totalmente de código aberto, sem componentes compilados
-* Com menos de 200 linhas de comprimento
 * Não intrusivo e completamente sem sistema.
 
 # Benchmarks
-Em andamento...
+Em andamento... :P
 
 # Contato
 Você pode me encontrar no Telegram em: @danielaki.
