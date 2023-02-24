@@ -89,7 +89,7 @@ write /proc/sys/vm/dirty_background_ratio 5
 
 # Start blocking writeback later
 write /proc/sys/vm/dirty_ratio 50
-
+write /proc/sys/vm/swappiness 200
 # Require dirty memory to stay in memory for longer
 write /proc/sys/vm/dirty_expire_centisecs 5000
 
